@@ -1,0 +1,12 @@
+{
+  "name": "ads-einvoicing-registration",
+  "version": "1.0.0",
+  "private": true,
+  "description": "UAE E-Invoicing Awareness Session registration website for ADS International Auditors LLC.",
+  "scripts": {
+    "build": "node scripts/build-env.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.0.0"
+  }
+}
