@@ -56,6 +56,20 @@ import { isSupabaseConfigured, getSupabaseClient } from "./supabaseClient.js";
   let isSubmitting = false;
 
   /* ------------------------------------------------------------------ */
+  /* Lightweight analytics: funnel tracking for the dashboard.           */
+  /* Fire-and-forget -- never blocks the UI and never surfaces errors to */
+  /* the visitor if it fails (e.g. Supabase not configured yet).         */
+  /* ------------------------------------------------------------------ */
+  function trackEvent(eventType) {
+    if (!isSupabaseConfigured()) return;
+    getSupabaseClient()
+      .then((supabase) => supabase.from("page_events").insert([{ event_type: eventType }]))
+      .catch(() => {});
+  }
+
+  trackEvent("page_view");
+
+  /* ------------------------------------------------------------------ */
   /* Screen transition helper (single-page, no reload, no new tabs)      */
   /* ------------------------------------------------------------------ */
   function switchScreen(fromEl, toEl) {
@@ -76,6 +90,7 @@ import { isSupabaseConfigured, getSupabaseClient } from "./supabaseClient.js";
   }
 
   btnStart.addEventListener("click", () => {
+    trackEvent("registration_started");
     switchScreen(screenIntro, screenRegistration);
     goToStep(1, { focusHeading: true });
   });

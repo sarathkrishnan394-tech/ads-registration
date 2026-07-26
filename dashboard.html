@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Registration Dashboard | ADS International Auditors LLC</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="dashboard.css">
+</head>
+<body class="dashboard-body">
+
+<!-- ============================================================ -->
+<!-- LOGIN SCREEN                                                  -->
+<!-- ============================================================ -->
+<section id="login-screen" class="dash-login-screen">
+  <div class="dash-login-bg-grid" aria-hidden="true"></div>
+  <form id="login-form" class="dash-login-card" novalidate>
+    <img class="ads-logo-small dash-login-logo" src="ADS_LOGO_PLACEHOLDER" alt="ADS International Auditors LLC logo">
+    <h1>Registration Dashboard</h1>
+    <p class="dash-login-sub">UAE E-Invoicing Awareness Session</p>
+
+    <div class="field">
+      <label for="login-email">Email</label>
+      <input type="email" id="login-email" name="email" autocomplete="username" required placeholder="you@adsauditors.com">
+    </div>
+    <div class="field">
+      <label for="login-password">Password</label>
+      <input type="password" id="login-password" name="password" autocomplete="current-password" required placeholder="Enter your password">
+    </div>
+
+    <p class="field-error" id="login-error" role="alert"></p>
+
+    <button type="submit" class="btn btn-primary dash-login-btn" id="login-btn">
+      <span class="btn-submit-label">Sign In</span>
+      <span class="btn-spinner" aria-hidden="true"></span>
+    </button>
+  </form>
+</section>
+
+<!-- ============================================================ -->
+<!-- DASHBOARD                                                     -->
+<!-- ============================================================ -->
+<section id="dashboard-screen" class="dash-screen" hidden>
+
+  <header class="dash-header">
+    <div class="dash-header-left">
+      <img class="ads-logo-small" src="ADS_LOGO_PLACEHOLDER" alt="ADS International Auditors LLC logo">
+      <div>
+        <div class="dash-header-title">Registration Dashboard</div>
+        <div class="dash-header-sub">UAE E-Invoicing Awareness Session &middot; 25 August 2026</div>
+      </div>
+    </div>
+    <div class="dash-header-right">
+      <button type="button" class="btn btn-ghost dash-btn-sm" id="btn-refresh">
+        <svg viewBox="0 0 24 24" class="btn-icon" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3M20 4v5h-5M4 20v-5h5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Refresh</span>
+      </button>
+      <button type="button" class="btn btn-primary dash-btn-sm" id="btn-export">
+        <svg viewBox="0 0 24 24" class="btn-icon" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Download Excel</span>
+      </button>
+      <button type="button" class="btn btn-ghost dash-btn-sm" id="btn-logout">Sign Out</button>
+    </div>
+  </header>
+
+  <p class="dash-error" id="dash-error" role="alert" hidden></p>
+  <p class="dash-loading" id="dash-loading">Loading registration data&hellip;</p>
+
+  <main class="dash-main" id="dash-main" hidden>
+
+    <!-- KPI row -->
+    <section class="dash-kpi-row" aria-label="Key metrics">
+      <div class="stat-tile">
+        <div class="stat-label">Link Visits</div>
+        <div class="stat-value" id="kpi-visits">0</div>
+        <div class="stat-hint">Times the page was opened</div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-label">Started Registration</div>
+        <div class="stat-value" id="kpi-started">0</div>
+        <div class="stat-hint">Clicked "Register for the Session"</div>
+      </div>
+      <div class="stat-tile stat-tile--accent">
+        <div class="stat-label">Completed Registration</div>
+        <div class="stat-value" id="kpi-completed">0</div>
+        <div class="stat-hint">Fully submitted the form</div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-label">Conversion Rate</div>
+        <div class="stat-value" id="kpi-conversion">0%</div>
+        <div class="stat-hint">Visits &rarr; completed</div>
+      </div>
+    </section>
+
+    <!-- Funnel -->
+    <section class="dash-card" aria-labelledby="funnel-heading">
+      <h2 id="funnel-heading">Registration Funnel</h2>
+      <p class="dash-card-sub">How visitors move from opening the link to completing registration.</p>
+      <div class="funnel" id="funnel-chart"></div>
+    </section>
+
+    <div class="dash-grid-2">
+      <section class="dash-card" aria-labelledby="turnover-heading">
+        <h2 id="turnover-heading">Annual Turnover</h2>
+        <p class="dash-card-sub">Distribution across completed registrations.</p>
+        <div class="bar-chart" id="chart-turnover"></div>
+      </section>
+
+      <section class="dash-card" aria-labelledby="erp-heading">
+        <h2 id="erp-heading">Accounting / ERP Software</h2>
+        <p class="dash-card-sub">Which systems registrants currently use.</p>
+        <div class="bar-chart" id="chart-erp"></div>
+      </section>
+
+      <section class="dash-card" aria-labelledby="hearabout-heading">
+        <h2 id="hearabout-heading">How They Heard About the Event</h2>
+        <p class="dash-card-sub">Channel effectiveness at a glance.</p>
+        <div class="bar-chart" id="chart-hearabout"></div>
+      </section>
+
+      <section class="dash-card" aria-labelledby="daily-heading">
+        <h2 id="daily-heading">Registrations Per Day</h2>
+        <p class="dash-card-sub">Submission activity over time.</p>
+        <div class="bar-chart bar-chart--vertical" id="chart-daily"></div>
+      </section>
+    </div>
+
+    <!-- Data table -->
+    <section class="dash-card" aria-labelledby="table-heading">
+      <div class="dash-table-header">
+        <div>
+          <h2 id="table-heading">All Registrations</h2>
+          <p class="dash-card-sub">Every completed registration, most recent first.</p>
+        </div>
+        <input type="search" id="table-search" class="dash-search" placeholder="Search by name, company, or email&hellip;" aria-label="Search registrations">
+      </div>
+      <div class="dash-table-wrap">
+        <table class="dash-table" id="responses-table">
+          <thead>
+            <tr>
+              <th>Submitted</th>
+              <th>Full Name</th>
+              <th>Company</th>
+              <th>Designation</th>
+              <th>Mobile</th>
+              <th>Email</th>
+              <th>Turnover</th>
+              <th>ERP Software</th>
+              <th>Attendees</th>
+              <th>Heard Via</th>
+              <th>Question</th>
+            </tr>
+          </thead>
+          <tbody id="responses-tbody"></tbody>
+        </table>
+      </div>
+      <p class="dash-table-empty" id="table-empty" hidden>No registrations yet.</p>
+    </section>
+
+  </main>
+</section>
+
+<script src="env-config.js"></script>
+<script type="module" src="dashboard.js"></script>
+</body>
+</html>
