@@ -1,0 +1,34 @@
+ADS E-Invoicing Registration Website - Upload Instructions
+===========================================================
+
+This package contains the redesigned registration website for:
+
+Date: 2 September 2026
+Time: 3:00 PM - 5:00 PM
+Venue: Bahi Ajman Palace Hotel, Ajman
+
+The existing Supabase registration form and dashboard integration have been preserved.
+
+How to upload through GitHub
+----------------------------
+
+1. Sign in to GitHub using the sarathkrishnan394-tech account.
+2. Open: https://github.com/sarathkrishnan394-tech/ads-registration
+3. Select Add file, then Upload files.
+4. Extract this ZIP file on your computer.
+5. Drag all extracted files into the GitHub upload area.
+6. Select "Commit directly to the main branch".
+7. Enter this message: Update event registration design and details
+8. Select Commit changes.
+
+Vercel should automatically deploy the updated main branch. Wait approximately
+one to three minutes, then open https://ads-registration.vercel.app and refresh.
+
+Important
+---------
+
+- Do not delete the existing Vercel environment variables.
+- SUPABASE_URL and SUPABASE_ANON_KEY must remain configured in Vercel.
+- The dashboard remains available at /dashboard.html.
+- Do not upload the ZIP file itself into the repository; upload its extracted contents.
+
